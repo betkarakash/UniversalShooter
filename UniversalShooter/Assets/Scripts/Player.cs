@@ -8,6 +8,11 @@ public class Player : MonoBehaviour {
     //SerializedField is use to create variable as private but user can access them within unity inspector.
     [SerializeField]
     private float _Speed = 3.5f;
+    [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private float _fireTime = 0.5f;
+    private float _nextFire = 0.0f;
 
     // Start is called before the first frame update
     void Start() {
@@ -17,7 +22,13 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        //Calculate the player movement and apply the bound to screen.
         calculateMovement();
+
+        //Offset to the laser object from the player object
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _nextFire){
+            fireLaser();
+        }
     }
 
     //Calculate player movement
@@ -38,5 +49,13 @@ public class Player : MonoBehaviour {
         }else if (transform.position.x <= -11.3f) {
             transform.position = new Vector3(11.3f, transform.position.y, 0);
         }
+    }
+
+    //Fire Laser
+    void fireLaser() {
+        //It will delay the fire mechanism by the _fireTime instead of continus fire.
+        _nextFire = Time.time + _fireTime;
+        //It will instantiate the clone of the prefab in the runtime, to simulate the laser or bullet behaviour.
+        Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
     }
 }
