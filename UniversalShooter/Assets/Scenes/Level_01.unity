@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Speed: 3.5
+  _laserPrefab: {fileID: 6012298247272725723, guid: 1e49ea667b9f1234e8553c8c0e2d4c74, type: 3}
 --- !u!1 &1702243054
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +269,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.20278569, g: 0.23765622, b: 0.2924528, a: 0}
+  m_BackGroundColor: {r: 0.2763439, g: 0.27895585, b: 0.2830189, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

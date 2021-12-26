@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
     //SerializedField is use to create variable as private but user can access them within unity inspector.
     [SerializeField]
     private float _Speed = 3.5f;
+    [SerializeField]
+    private GameObject _laserPrefab;
 
     // Start is called before the first frame update
     void Start() {
@@ -18,6 +20,10 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         calculateMovement();
+
+        if (Input.GetKeyDown(KeyCode.Space)){
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+        }
     }
 
     //Calculate player movement
