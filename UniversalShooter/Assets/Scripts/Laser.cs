@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour
-{
+public class Laser : MonoBehaviour {
+
     [SerializeField]
     private float _laserSpeed = 50f;
 
