@@ -85,4 +85,18 @@ public class Player : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
+
+    //Activate the TripleShot power up
+    public void activateTripleShot(){
+        //Activate the triple shot power up
+        _isTripleShotActive = true;
+        //Call the power down routine.
+        StartCoroutine(powerDownTripleShot());
+    }
+
+    //Couroutine to start the power down
+    IEnumerator powerDownTripleShot() {
+        yield return new WaitForSeconds(5.0f);
+        _isTripleShotActive = false;
+    }
 }
