@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour {
     }
 
     //On Trigger Event
-    private void OnTriggerEnter(Collider collidedObject) {
+    private void OnTriggerEnter2D(Collider2D collidedObject) {
         //If laser hit the enemy then,
         if (collidedObject.tag == "Player") {
             //Destroy the lives of the object.

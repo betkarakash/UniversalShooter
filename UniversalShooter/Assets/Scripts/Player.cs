@@ -63,7 +63,7 @@ public class Player : MonoBehaviour {
         //It will delay the fire mechanism by the _fireTime instead of continus fire.
         _nextFire = Time.time + _fireTime;
         //It will instantiate the clone of the prefab in the runtime, to simulate the laser or bullet behaviour.
-        Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+        Instantiate(_laserPrefab, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
     }
 
     //Damage Method
