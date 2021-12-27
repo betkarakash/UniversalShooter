@@ -15,7 +15,10 @@ public class Laser : MonoBehaviour {
         //Once the laser object move away from screen, then destroy object,
         //so it will not exist without a reason in the game play
         if (transform.position.y >= 7) {
-            //gameObject is the value for the current istance of the object.
+            //Check if object has parent then destroy the parent too or else only destroy the object
+            if (transform.parent != null) {
+                Destroy(transform.parent.gameObject);
+            }
             Destroy(this.gameObject);
         }
     }
