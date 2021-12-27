@@ -13,12 +13,18 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private float _fireTime = 0.5f;
     private float _nextFire = 0.0f;
+    [SerializeField]
     private int _lives = 3;
+    private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
     void Start() {
         //With start of the game rearrange the position of the player to the center of the screen.
         transform.position = new Vector3(0, 0, 0);
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        if (_spawnManager == null){
+            Debug.Log("SpawnManager is empty.");
+        }
     }
 
     // Update is called once per frame
@@ -65,7 +71,9 @@ public class Player : MonoBehaviour {
         --_lives;
 
         //Check if lives are zero, then destroy the player
-        if(_lives > 1){
+        if(_lives < 1){
+            //Call the spawwnManager function to stop enemies once the player is destroyed.
+            _spawnManager.OnPlayerDied();
             Destroy(this.gameObject);
         }
     }
