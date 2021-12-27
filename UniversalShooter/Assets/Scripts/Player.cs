@@ -16,6 +16,10 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
+    [SerializeField]
+    private bool _isTripleShotActive = false;
+    [SerializeField]
+    private GameObject _tripleShotPrefab;
 
     // Start is called before the first frame update
     void Start() {
@@ -62,8 +66,12 @@ public class Player : MonoBehaviour {
     void fireLaser() {
         //It will delay the fire mechanism by the _fireTime instead of continus fire.
         _nextFire = Time.time + _fireTime;
-        //It will instantiate the clone of the prefab in the runtime, to simulate the laser or bullet behaviour.
-        Instantiate(_laserPrefab, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+        //If space key is pressed and isTripleShotActive is enabled then it will fire 3 laser else will fire single laser
+        if (_isTripleShotActive == true) {
+            Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+        }else {
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+        }
     }
 
     //Damage Method
@@ -76,5 +84,19 @@ public class Player : MonoBehaviour {
             _spawnManager.OnPlayerDied();
             Destroy(this.gameObject);
         }
+    }
+
+    //Activate the TripleShot power up
+    public void activateTripleShot(){
+        //Activate the triple shot power up
+        _isTripleShotActive = true;
+        //Call the power down routine.
+        StartCoroutine(powerDownTripleShot());
+    }
+
+    //Couroutine to start the power down
+    IEnumerator powerDownTripleShot() {
+        yield return new WaitForSeconds(5.0f);
+        _isTripleShotActive = false;
     }
 }
