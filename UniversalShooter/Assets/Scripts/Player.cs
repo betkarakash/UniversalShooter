@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private float _fireTime = 0.5f;
     private float _nextFire = 0.0f;
+    private int _lives = 3;
 
     // Start is called before the first frame update
     void Start() {
@@ -57,5 +58,15 @@ public class Player : MonoBehaviour {
         _nextFire = Time.time + _fireTime;
         //It will instantiate the clone of the prefab in the runtime, to simulate the laser or bullet behaviour.
         Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+    }
+
+    //Damage Method
+    public void Damage(){
+        --_lives;
+
+        //Check if lives are zero, then destroy the player
+        if(_lives > 1){
+            Destroy(this.gameObject);
+        }
     }
 }

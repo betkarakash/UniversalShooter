@@ -21,4 +21,22 @@ public class Enemy : MonoBehaviour {
             transform.position = new Vector3(Random.Range(-10.0f, 10.0f), 6, 0);
         }
     }
+
+    //On Trigger Event
+    private void OnTriggerEnter(Collider collidedObject) {
+        //If laser hit the enemy then,
+        if (collidedObject.tag == "Player") {
+            //Destroy the lives of the object.
+            Player playerComponent = collidedObject.transform.GetComponent<Player>();
+            if (playerComponent != null) {
+                playerComponent.Damage();
+            }
+            //And destroy the enemy object.
+            Destroy(this.gameObject);
+        }else if (collidedObject.tag == "Laser"){
+            Destroy(this.gameObject);
+            Destroy(collidedObject.gameObject);
+        }
+    }
+
 }
