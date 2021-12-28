@@ -93,9 +93,10 @@ public class Player : MonoBehaviour {
             return;
         }
         --_lives;
+        updateLivesOnUI(_lives);
 
         //Check if lives are zero, then destroy the player
-        if(_lives < 1){
+        if (_lives < 1){
             //Call the spawwnManager function to stop enemies once the player is destroyed.
             _spawnManager.OnPlayerDied();
             Destroy(this.gameObject);
@@ -159,6 +160,13 @@ public class Player : MonoBehaviour {
         _Score += 1;
         if(_UIManager != null) {
             _UIManager.updateScoreText(_Score);
+        }
+    }
+
+    //Update the lives
+    public void updateLivesOnUI(int lives) {
+        if (_UIManager != null) {
+            _UIManager.updateLives(lives);
         }
     }
 }
