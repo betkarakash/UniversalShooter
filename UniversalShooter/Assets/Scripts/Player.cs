@@ -100,6 +100,9 @@ public class Player : MonoBehaviour {
             //Call the spawwnManager function to stop enemies once the player is destroyed.
             _spawnManager.OnPlayerDied();
             Destroy(this.gameObject);
+
+            //Display the GameOver text
+            showGameOver();
         }
     }
 
@@ -167,6 +170,13 @@ public class Player : MonoBehaviour {
     public void updateLivesOnUI(int lives) {
         if (_UIManager != null) {
             _UIManager.updateLives(lives);
+        }
+    }
+
+    //Show the GameOver object
+    public void showGameOver() {
+        if(_UIManager != null) {
+            _UIManager.displayGameOver();
         }
     }
 }
