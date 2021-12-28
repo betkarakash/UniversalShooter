@@ -17,12 +17,12 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
-    [SerializeField]
     private bool _isTripleShotActive = false;
     [SerializeField]
     private GameObject _tripleShotPrefab;
-    [SerializeField]
     private bool _isSpeedBoostActive = false;
+    [SerializeField]
+    private bool _isShieldActive = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -83,6 +83,11 @@ public class Player : MonoBehaviour {
 
     //Damage Method
     public void Damage(){
+        //Check the Shield Activ status
+        if(_isShieldActive == true) {
+            _isShieldActive = false;
+            return;
+        }
         --_lives;
 
         //Check if lives are zero, then destroy the player
@@ -104,7 +109,8 @@ public class Player : MonoBehaviour {
                 _isSpeedBoostActive = true;
                 break;
             case 2:
-                Debug.Log("Third power");
+                _isShieldActive = true;
+                activateShieldVisualizer(_isShieldActive);
                 break;
             default:
                 Debug.Log("No PowerUp");
@@ -128,7 +134,8 @@ public class Player : MonoBehaviour {
                 _isSpeedBoostActive = false;
                 break;
             case 2:
-                Debug.Log("Third power");
+                _isShieldActive = false;
+                activateShieldVisualizer(_isShieldActive);
                 break;
             default:
                 Debug.Log("No PowerUp");
@@ -136,4 +143,10 @@ public class Player : MonoBehaviour {
         }
     }
 
+    //Activate the Shield Visualizer
+    void activateShieldVisualizer(bool _isShieldActive) {
+        if(transform.GetChild(0).gameObject != null) {
+            transform.GetChild(0).gameObject.SetActive(_isShieldActive);
+        }
+    }
 }
