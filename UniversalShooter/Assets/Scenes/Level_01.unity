@@ -420,7 +420,7 @@ MonoBehaviour:
   _powerUps:
   - {fileID: 6431899689110582054, guid: d6e5ec10256fe304d9255372c4492be6, type: 3}
   - {fileID: 5910452706151362506, guid: 8803cd73403d90e40973495518d72294, type: 3}
-  - {fileID: 5910452706151362506, guid: 8803cd73403d90e40973495518d72294, type: 3}
+  - {fileID: 2134990862939265579, guid: b9ec5d88aa93b4e468ca041c9130bc7a, type: 3}
 --- !u!4 &836544419
 Transform:
   m_ObjectHideFlags: 0
