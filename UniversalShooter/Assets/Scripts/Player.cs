@@ -87,16 +87,32 @@ public class Player : MonoBehaviour {
     }
 
     //Activate the TripleShot power up
-    public void activateTripleShot(){
-        //Activate the triple shot power up
-        _isTripleShotActive = true;
+    public void activatePowerUp(int powerUpID){
+        //Activate the power up according to the id
+        if(powerUpID == 1) {
+            _isTripleShotActive = true;
+        }else if (powerUpID == 2) {
+            _Speed = 10f;
+        }else if (powerUpID == 3) {
+            Debug.Log("Third power");
+        }
+
         //Call the power down routine.
-        StartCoroutine(powerDownTripleShot());
+        StartCoroutine(deactivatePowerUp(powerUpID));
     }
 
     //Couroutine to start the power down
-    IEnumerator powerDownTripleShot() {
+    IEnumerator deactivatePowerUp(int powerUpID) {
         yield return new WaitForSeconds(5.0f);
-        _isTripleShotActive = false;
+
+        //Back to the previous state.
+        if (powerUpID == 1) {
+            _isTripleShotActive = false;
+        }else if (powerUpID == 2) {
+            _Speed = 3.5f;
+        }else if (powerUpID == 3) {
+            Debug.Log("Third power");
+        }
     }
+
 }
