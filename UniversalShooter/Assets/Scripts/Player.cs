@@ -7,7 +7,8 @@ public class Player : MonoBehaviour {
     //Create a speed variable to the player to manipulate its speed.
     //SerializedField is use to create variable as private but user can access them within unity inspector.
     [SerializeField]
-    private float _Speed = 3.5f;
+    private float _Speed = 5f;
+    private float _SpeedBoost = 2f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -20,6 +21,8 @@ public class Player : MonoBehaviour {
     private bool _isTripleShotActive = false;
     [SerializeField]
     private GameObject _tripleShotPrefab;
+    [SerializeField]
+    private bool _isSpeedBoostActive = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -46,7 +49,11 @@ public class Player : MonoBehaviour {
     void calculateMovement() {
         //Now create the player movemenet.
         //Input is the unity function, where user can access the input from  alhpa keys as well as from arrow keys
-        transform.Translate(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * _Speed * Time.deltaTime);
+        if (_isSpeedBoostActive == false) {
+            transform.Translate(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * _Speed * Time.deltaTime);
+        }else {
+            transform.Translate(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * (_Speed * _SpeedBoost) * Time.deltaTime);
+        }
 
         //Now create a player bounds.
         if (transform.position.y >= 0) {
@@ -87,16 +94,46 @@ public class Player : MonoBehaviour {
     }
 
     //Activate the TripleShot power up
-    public void activateTripleShot(){
-        //Activate the triple shot power up
-        _isTripleShotActive = true;
+    public void activatePowerUp(int powerUpID){
+        //Activate the power up according to the id
+        switch (powerUpID) {
+            case 0:
+                _isTripleShotActive = true;
+                break;
+            case 1:
+                _isSpeedBoostActive = true;
+                break;
+            case 2:
+                Debug.Log("Third power");
+                break;
+            default:
+                Debug.Log("No PowerUp");
+                break;
+        }
+
         //Call the power down routine.
-        StartCoroutine(powerDownTripleShot());
+        StartCoroutine(deactivatePowerUp(powerUpID));
     }
 
     //Couroutine to start the power down
-    IEnumerator powerDownTripleShot() {
+    IEnumerator deactivatePowerUp(int powerUpID) {
         yield return new WaitForSeconds(5.0f);
-        _isTripleShotActive = false;
+
+        //Back to the previous state.
+        switch (powerUpID){
+            case 0:
+                _isTripleShotActive = false;
+                break;
+            case 1:
+                _isSpeedBoostActive = false;
+                break;
+            case 2:
+                Debug.Log("Third power");
+                break;
+            default:
+                Debug.Log("No PowerUp");
+                break;
+        }
     }
+
 }
