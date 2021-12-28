@@ -9,11 +9,6 @@ public class PowerUp : MonoBehaviour {
     [SerializeField]
     private int powerUpID;
 
-    // Start is called before the first frame update
-    void Start(){
-        
-    }
-
     // Update is called once per frame
     void Update(){
         //Moving down
