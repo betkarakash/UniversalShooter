@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour {
     private Text _gameOver;
     [SerializeField]
     private Text _restartLevel;
+    [SerializeField]
+    private GameManager _gameManager;
 
     // Start is called before the first frame update
     void Start() {
@@ -38,6 +40,9 @@ public class UIManager : MonoBehaviour {
     public void displayGameOver() {
         _gameOver.gameObject.SetActive(true);
         _restartLevel.gameObject.SetActive(true);
+        if(_gameManager != null) {
+            _gameManager.GameOver();
+        }
         StartCoroutine(flikrGameOverRoutine());
     }
 

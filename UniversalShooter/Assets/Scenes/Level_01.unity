@@ -788,6 +788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d17b02c05e6dea43b3c30a83c07c6c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isGameOver: 0
 --- !u!4 &1190685593
 Transform:
   m_ObjectHideFlags: 0
@@ -927,6 +928,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9fe6f40efddf0b64fb68a3382b14a4db, type: 3}
   _gameOver: {fileID: 1708248704}
   _restartLevel: {fileID: 1830246527}
+  _gameManager: {fileID: 1190685592}
 --- !u!1 &1702243054
 GameObject:
   m_ObjectHideFlags: 0
