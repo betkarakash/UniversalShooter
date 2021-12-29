@@ -19,11 +19,6 @@ public class SpawnManager : MonoBehaviour {
         StartCoroutine(spawnPowerUpRoutine());
     }
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
     //IENumerator for the Coroutine. Coruotine helps user to pause game for sometimme to acheive mutlitasking.
     IEnumerator spawnEnemyRoutine() {
         //Instantiate the enemy object to fall from the screen in interval of 5 sec.

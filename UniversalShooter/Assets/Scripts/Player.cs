@@ -23,6 +23,9 @@ public class Player : MonoBehaviour {
     private bool _isSpeedBoostActive = false;
     [SerializeField]
     private bool _isShieldActive = false;
+    [SerializeField]
+    private int _Score = 0;
+    private UIManager _UIManager;
 
     // Start is called before the first frame update
     void Start() {
@@ -32,6 +35,7 @@ public class Player : MonoBehaviour {
         if (_spawnManager == null){
             Debug.Log("SpawnManager is empty.");
         }
+        _UIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -89,12 +93,16 @@ public class Player : MonoBehaviour {
             return;
         }
         --_lives;
+        updateLivesOnUI(_lives);
 
         //Check if lives are zero, then destroy the player
-        if(_lives < 1){
+        if (_lives < 1){
             //Call the spawwnManager function to stop enemies once the player is destroyed.
             _spawnManager.OnPlayerDied();
             Destroy(this.gameObject);
+
+            //Display the GameOver text
+            showGameOver();
         }
     }
 
@@ -147,6 +155,28 @@ public class Player : MonoBehaviour {
     void activateShieldVisualizer(bool _isShieldActive) {
         if(transform.GetChild(0).gameObject != null) {
             transform.GetChild(0).gameObject.SetActive(_isShieldActive);
+        }
+    }
+
+    //Add the score.
+    public void addScoreToPlayer() {
+        _Score += 1;
+        if(_UIManager != null) {
+            _UIManager.updateScoreText(_Score);
+        }
+    }
+
+    //Update the lives
+    public void updateLivesOnUI(int lives) {
+        if (_UIManager != null) {
+            _UIManager.updateLives(lives);
+        }
+    }
+
+    //Show the GameOver object
+    public void showGameOver() {
+        if(_UIManager != null) {
+            _UIManager.displayGameOver();
         }
     }
 }
