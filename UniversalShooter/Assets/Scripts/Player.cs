@@ -26,6 +26,8 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private int _Score = 0;
     private UIManager _UIManager;
+    [SerializeField]
+    private GameObject _firstHit, _secondHit;
 
     // Start is called before the first frame update
     void Start() {
@@ -94,6 +96,13 @@ public class Player : MonoBehaviour {
         }
         --_lives;
         updateLivesOnUI(_lives);
+
+        //Visualise damage once hit.
+        if(_lives == 2) {
+            _firstHit.gameObject.SetActive(true);
+        }else if(_lives == 1) {
+            _secondHit.gameObject.SetActive(true);
+        }
 
         //Check if lives are zero, then destroy the player
         if (_lives < 1){
