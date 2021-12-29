@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour {
 
     //Create a handle for Score component
     [SerializeField]
-    private Text _scoreText;
+    private Text _scoreText, _highScore;
     [SerializeField]
     private Image _liveSpriteImg;
     [SerializeField]
@@ -21,14 +21,20 @@ public class UIManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        _scoreText.text = "Kills : 0";
+        _scoreText.text = "Your Kills : " + 0;
+        _highScore.text = "Record Kills : " + PlayerPrefs.GetInt("Record", 0);
         _gameOver.text = "";
         _gameOver.gameObject.SetActive(false);
     }
 
     //Update the ScoreText value
     public void updateScoreText(int Score) {
-        _scoreText.text = "Kills : " + Score;
+        _scoreText.text = "Your Kills : " + Score;
+    }
+
+    //Update the HighScoreText value
+    public void updateHighScoreText(int HighScore) {
+        _highScore.text = "Record Kills : " + HighScore;
     }
 
     //Update the lives of the player

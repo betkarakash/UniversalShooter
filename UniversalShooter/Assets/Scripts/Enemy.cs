@@ -54,6 +54,8 @@ public class Enemy : MonoBehaviour {
             _enemyDestroy.SetTrigger("OnTriggerDestroy");
             _enemySpeed = 0;
             _destroyClip.Play();
+
+            Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.5f);
             Destroy(collidedObject.gameObject);
         }
