@@ -8,10 +8,18 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     private float _enemySpeed = 4f;
     private Player _player;
-
+    private Animator _enemyDestroy;
+    
     // Start called at the initilize
     private void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        if(_player == null) {
+            Debug.Log("Player is null");
+        }
+        _enemyDestroy = GetComponent<Animator>();
+        if (_enemyDestroy == null) {
+            Debug.Log("Animation is null");
+        }
     }
 
     // Update is called once per frame
@@ -30,15 +38,19 @@ public class Enemy : MonoBehaviour {
             //Destroy the lives of the object.
             Player playerComponent = collidedObject.transform.GetComponent<Player>();
             if (playerComponent != null) {
+                _enemyDestroy.SetTrigger("OnTriggerDestroy");
                 playerComponent.Damage();
             }
             //And destroy the enemy object.
-            Destroy(this.gameObject);
+            _enemySpeed = 0;
+            Destroy(this.gameObject, 2.5f);
         }else if (collidedObject.tag == "Laser"){
             if(_player != null) {
                 _player.addScoreToPlayer();
             }
-            Destroy(this.gameObject);
+            _enemyDestroy.SetTrigger("OnTriggerDestroy");
+            _enemySpeed = 0;
+            Destroy(this.gameObject, 2.5f);
             Destroy(collidedObject.gameObject);
         }
     }

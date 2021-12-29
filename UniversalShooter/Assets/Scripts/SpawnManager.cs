@@ -12,8 +12,8 @@ public class SpawnManager : MonoBehaviour {
     [SerializeField]
     private GameObject[] _powerUps;
 
-    // Start is called before the first frame update
-    void Start() {
+    // StartSpawning is called after asteroid is destroyed
+    public void startSpawning() {
         //Start the coroutine
         StartCoroutine(spawnEnemyRoutine());
         StartCoroutine(spawnPowerUpRoutine());
@@ -21,6 +21,8 @@ public class SpawnManager : MonoBehaviour {
 
     //IENumerator for the Coroutine. Coruotine helps user to pause game for sometimme to acheive mutlitasking.
     IEnumerator spawnEnemyRoutine() {
+        yield return new WaitForSeconds(3.0f);
+
         //Instantiate the enemy object to fall from the screen in interval of 5 sec.
         while (_stopSpawning == false) {
             Vector3 spawnTransform = new Vector3(Random.Range(-10.0f, 10.0f), 7, 0);
@@ -33,9 +35,21 @@ public class SpawnManager : MonoBehaviour {
 
     //Spawn the power up routine
     IEnumerator spawnPowerUpRoutine() {
+        yield return new WaitForSeconds(3.0f);
+
         while (_stopSpawning == false) {
             Vector3 spawnPowerUpTransform = new Vector3(Random.Range(-10.0f, 10.0f), 7, 0);
             Instantiate(_powerUps[Random.Range(0,3)], spawnPowerUpTransform, Quaternion.identity);
+            //For every 3-7 seconds it will spawn the power up
+            yield return new WaitForSeconds(Random.Range(3, 15));
+        }
+    }
+
+    //Spawn the asteroids eoutine
+    IEnumerator spawnAsteroidRoutine() {
+        while (_stopSpawning == false) {
+            Vector3 spawnPowerUpTransform = new Vector3(Random.Range(-10.0f, 10.0f), 7, 0);
+            Instantiate(_powerUps[Random.Range(0, 3)], spawnPowerUpTransform, Quaternion.identity);
             //For every 3-7 seconds it will spawn the power up
             yield return new WaitForSeconds(Random.Range(3, 15));
         }
