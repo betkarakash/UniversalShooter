@@ -31,6 +31,7 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private AudioClip _laserSound;
     private AudioSource _audioSource;
+    private int _highScore;
 
     // Start is called before the first frame update
     void Start() {
@@ -50,6 +51,10 @@ public class Player : MonoBehaviour {
         }
         else {
             _audioSource.clip = _laserSound;
+        }
+
+        if(PlayerPrefs.HasKey("Record")) {
+            _highScore = PlayerPrefs.GetInt("Record", 0);
         }
     }
 
@@ -126,11 +131,25 @@ public class Player : MonoBehaviour {
             _spawnManager.OnPlayerDied();
             Destroy(this.gameObject);
 
+            //Check the best score.
+            checkRecord();
+
             //Display the GameOver text
             showGameOver();
         }
     }
 
+    //Check for the record kills
+    public void checkRecord() {
+        if (_Score > _highScore) {
+            _highScore = _Score;
+            PlayerPrefs.SetInt("Record", _Score);
+        }
+
+        if (_UIManager != null) {
+            _UIManager.updateHighScoreText(_Score);
+        }
+    }
     //Activate the TripleShot power up
     public void activatePowerUp(int powerUpID){
         //Activate the power up according to the id
