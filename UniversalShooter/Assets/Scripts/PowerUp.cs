@@ -8,6 +8,8 @@ public class PowerUp : MonoBehaviour {
     private float _powerUpSpeed = 3f;
     [SerializeField]
     private int powerUpID;
+    [SerializeField]
+    private AudioClip _powerUpClip;
 
     // Update is called once per frame
     void Update(){
@@ -24,12 +26,13 @@ public class PowerUp : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         //Check if the collided object is player or not.
         if (collision.tag == "Player") {
-            //Now enable the _isTripleShotActive to true.
+            //Now enable the power up to true.
+            AudioSource.PlayClipAtPoint(_powerUpClip, transform.position);
             Player player = collision.gameObject.GetComponent<Player>();
             if(player != null){
                 player.activatePowerUp(powerUpID);
             }
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 3f);
         }
     }
 }

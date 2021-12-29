@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
     private float _enemySpeed = 4f;
     private Player _player;
     private Animator _enemyDestroy;
+    private AudioSource _destroyClip;
     
     // Start called at the initilize
     private void Start() {
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour {
         if (_enemyDestroy == null) {
             Debug.Log("Animation is null");
         }
+        _destroyClip = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class Enemy : MonoBehaviour {
             }
             //And destroy the enemy object.
             _enemySpeed = 0;
+            _destroyClip.Play();
             Destroy(this.gameObject, 2.5f);
         }else if (collidedObject.tag == "Laser"){
             if(_player != null) {
@@ -50,6 +53,7 @@ public class Enemy : MonoBehaviour {
             }
             _enemyDestroy.SetTrigger("OnTriggerDestroy");
             _enemySpeed = 0;
+            _destroyClip.Play();
             Destroy(this.gameObject, 2.5f);
             Destroy(collidedObject.gameObject);
         }
