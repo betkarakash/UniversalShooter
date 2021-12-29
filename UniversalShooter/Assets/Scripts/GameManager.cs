@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown(KeyCode.R) && _isGameOver == true) {
+            SceneManager.LoadScene(1);
+        }else if(Input.GetKeyDown(KeyCode.E) && _isGameOver == true) {
             SceneManager.LoadScene(0);
         }
     }
