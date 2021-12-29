@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         //With start of the game rearrange the position of the player to the center of the screen.
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, -3, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         if (_spawnManager == null){
             Debug.Log("SpawnManager is empty.");
